@@ -1,6 +1,6 @@
 # Berlin Clock
 
-Spring Boot converts a local time of day into Berlin Clock rows. React displays the lamps and lets you choose between the browser's current time and a manual time.
+Spring Boot converts local times of day to Berlin Clock lamps and valid lamp representations back to digital time. React provides both conversions, with current and manual time modes for the forward direction.
 
 ## Prerequisites
 
