@@ -34,4 +34,20 @@ class BerlinClockConverterTest {
     void fiveHourRowLightsOneRedLampForEachCompleteFiveHours(int hours, String expectedRow) {
         assertEquals(expectedRow, converter.fiveHourRow(hours));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "0, OOOO",
+        "4, RRRR",
+        "5, OOOO",
+        "6, ROOO",
+        "9, RRRR",
+        "10, OOOO",
+        "19, RRRR",
+        "20, OOOO",
+        "23, RRRO"
+    })
+    void singleHourRowLightsRemainingHoursAfterFiveHourBlocks(int hours, String expectedRow) {
+        assertEquals(expectedRow, converter.singleHourRow(hours));
+    }
 }
