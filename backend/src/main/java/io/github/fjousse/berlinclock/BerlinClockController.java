@@ -38,6 +38,11 @@ public class BerlinClockController {
         }
     }
 
+    @GetMapping("/api/digital-time")
+    public DigitalTimeResponse toDigitalTime(@RequestParam(required = false) String berlinClock) {
+        return null;
+    }
+
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ProblemDetail> handleInvalidTime(ResponseStatusException exception) {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(

@@ -4,8 +4,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -79,5 +81,46 @@ class BerlinClockControllerTest {
         mockMvc.perform(get("/api/berlin-clock"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.detail").value("Time must be a valid HH:mm:ss value"));
+    }
+
+    @Test
+    void convertsBerlinClockIntoDigitalTime() throws Exception {
+        mockMvc.perform(get("/api/digital-time")
+                        .param("berlinClock", "ORROOROOOYYRYYRYOOOOYYOO"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.time").value("11:37:01"));
+    }
+
+    @Test
+    void reverseConversionKeepsSecondsInTheDigitalTimeFormat() throws Exception {
+        mockMvc.perform(get("/api/digital-time")
+                        .param("berlinClock", "Y" + "O".repeat(23)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.time").value("00:00:00"));
+    }
+
+    @Test
+    void rejectsMissingBerlinClock() throws Exception {
+        mockMvc.perform(get("/api/digital-time"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail")
+                        .value("Berlin Clock must be a valid 24-character R/Y/O representation"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidBerlinClocks")
+    void rejectsInvalidBerlinClock(String representation) throws Exception {
+        mockMvc.perform(get("/api/digital-time").param("berlinClock", representation))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail")
+                        .value("Berlin Clock must be a valid 24-character R/Y/O representation"));
+    }
+
+    private static Stream<String> invalidBerlinClocks() {
+        return Stream.of(
+                "O".repeat(23),
+                "X" + "O".repeat(23),
+                "Y" + "RORO" + "O".repeat(19),
+                "Y" + "RRRRRRRR" + "O".repeat(15));
     }
 }
