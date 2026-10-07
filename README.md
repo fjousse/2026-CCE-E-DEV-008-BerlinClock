@@ -1,6 +1,6 @@
 # Berlin Clock
 
-This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The project is being built in small, test-driven steps. At this stage, both applications start, but conversion and API endpoints have not been added yet.
+This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The backend currently converts a supplied digital time into five Berlin Clock rows. The frontend is still a placeholder.
 
 ## Prerequisites
 
@@ -20,7 +20,27 @@ mvn verify
 mvn spring-boot:run
 ```
 
-Spring Boot starts on `http://localhost:8080`. There are no HTTP endpoints yet. `mvn verify` builds the backend and runs its tests; no tests have been added at this stage.
+Spring Boot starts on `http://localhost:8080`. `mvn verify` builds the backend and runs its tests.
+
+Convert a local time of day using `GET /api/berlin-clock?time=HH:mm:ss`:
+
+```sh
+curl 'http://localhost:8080/api/berlin-clock?time=23:12:47'
+```
+
+The response contains five named lamp rows:
+
+```json
+{
+  "secondsLamp": "O",
+  "fiveHourRow": "RRRR",
+  "singleHourRow": "RRRO",
+  "fiveMinuteRow": "YYOOOOOOOOO",
+  "singleMinuteRow": "YYOO"
+}
+```
+
+`R` is a lit red lamp, `Y` is a lit yellow lamp, and `O` is an off lamp. Missing or invalid times return HTTP `400` with a validation detail. The API treats `time` as a local time of day, without timezone conversion.
 
 ## Frontend
 

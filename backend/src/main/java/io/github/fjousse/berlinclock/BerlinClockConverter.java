@@ -1,9 +1,22 @@
 package io.github.fjousse.berlinclock;
 
+import java.time.LocalTime;
+import org.springframework.stereotype.Service;
+
+@Service
 public class BerlinClockConverter {
 
     private static final int SHORT_ROW_LAMPS = 4;
     private static final int FIVE_MINUTE_ROW_LAMPS = 11;
+
+    public BerlinClock toBerlinClock(LocalTime time) {
+        return new BerlinClock(
+                isSecondsLampOn(time.getSecond()) ? "Y" : "O",
+                fiveHourRow(time.getHour()),
+                singleHourRow(time.getHour()),
+                fiveMinuteRow(time.getMinute()),
+                singleMinuteRow(time.getMinute()));
+    }
 
     public boolean isSecondsLampOn(int seconds) {
         return seconds % 2 == 0;
