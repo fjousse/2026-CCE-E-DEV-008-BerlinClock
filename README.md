@@ -1,6 +1,6 @@
 # Berlin Clock
 
-This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The backend converts a supplied digital time into five Berlin Clock rows. The frontend displays the lamps and their raw row values for either the browser's current local time or a manually selected time.
+Spring Boot converts a local time of day into Berlin Clock rows. React displays the lamps and lets you choose between the browser's current time and a manual time.
 
 ## Prerequisites
 
@@ -8,21 +8,50 @@ This repository contains a Spring Boot backend and a React frontend for the Berl
 - Maven 3.9 or newer
 - Node.js 24 and npm 11
 
-The commands below were verified with Java 25.0.3, Maven 3.9.16, Node.js 24.19.0, and npm 11.17.0.
+Verified with Java 25.0.3, Maven 3.9.16, Node.js 24.19.0, and npm 11.17.0.
 
-## Backend
+## Build and test
 
-From the repository root:
+Run these commands from the repository root:
 
 ```sh
 cd backend
 mvn verify
+cd ../frontend
+npm ci
+npm test
+npm run build
+```
+
+`mvn verify` runs the backend tests and builds the backend. `npm test` runs the frontend interaction tests; `npm run build` checks TypeScript and builds the frontend.
+
+## Run
+
+Start each server in a separate terminal from the repository root:
+
+```sh
+cd backend
 mvn spring-boot:run
 ```
 
-Spring Boot starts on `http://localhost:8080`. `mvn verify` builds the backend and runs its tests.
+```sh
+cd frontend
+npm ci
+npm run dev
+```
 
-Convert a local time of day using `GET /api/berlin-clock?time=HH:mm:ss`:
+Open the URL printed by Vite, normally `http://localhost:5173`. The frontend forwards `/api` requests to the backend on `http://localhost:8080`. Stop either server with `Ctrl+C`.
+
+## Use the clock
+
+- **Current time** is selected on startup. The browser sends its local time to the backend every second.
+- Clear **Refresh automatically every second** to pause current-time updates.
+- Enter a time including seconds and select **Show** to use manual time. This stops current-time updates.
+- Select **Current time** to return to the browser's time. Refresh resumes if its checkbox is selected.
+
+## API
+
+Convert a local time of day with `GET /api/berlin-clock?time=HH:mm:ss`:
 
 ```sh
 curl 'http://localhost:8080/api/berlin-clock?time=23:12:47'
@@ -40,19 +69,4 @@ The response contains five named lamp rows:
 }
 ```
 
-`R` is a lit red lamp, `Y` is a lit yellow lamp, and `O` is an off lamp. Missing or invalid times return HTTP `400` with a validation detail. The API treats `time` as a local time of day, without timezone conversion.
-
-## Frontend
-
-In a separate terminal, from the repository root:
-
-```sh
-cd frontend
-npm ci
-npm run build
-npm run dev
-```
-
-Vite prints the local URL, normally `http://localhost:5173`. The page opens in **Current Time** mode and converts the browser's local time every second. Clear **Automatic refresh** to pause those updates. Enter a time including seconds and select **Convert manual time** to switch to manual mode; this stops current-time updates. Select **Use current time** to return to Current Time mode, which resumes automatic refresh if the checkbox is selected. Both servers must be running: the Vite development server forwards `/api` requests to the backend on port `8080`.
-
-The backend and frontend can be started independently. Stop either development server with `Ctrl+C`.
+`R` is a lit red lamp, `Y` is a lit yellow lamp, and `O` is an off lamp. The API treats `time` as a local time of day without timezone conversion. Missing or invalid times return HTTP `400` with a validation detail.
