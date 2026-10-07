@@ -7,6 +7,7 @@ public class BerlinClockConverter {
     }
 
     public String fiveHourRow(int hours) {
-        return "OOOO";
+        int litLamps = hours / 5;
+        return "R".repeat(litLamps) + "O".repeat(4 - litLamps);
     }
 }
