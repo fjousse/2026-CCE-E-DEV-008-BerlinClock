@@ -24,4 +24,8 @@ public class BerlinClockConverter {
         }
         return row.append("O".repeat(11 - litLamps)).toString();
     }
+
+    public String singleMinuteRow(int minutes) {
+        return "OOOO";
+    }
 }

@@ -66,4 +66,20 @@ class BerlinClockConverterTest {
     void fiveMinuteRowLightsEachCompleteBlockWithEveryThirdLampRed(int minutes, String expectedRow) {
         assertEquals(expectedRow, converter.fiveMinuteRow(minutes));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "0, OOOO",
+        "4, YYYY",
+        "5, OOOO",
+        "6, YOOO",
+        "9, YYYY",
+        "10, OOOO",
+        "44, YYYY",
+        "55, OOOO",
+        "59, YYYY"
+    })
+    void singleMinuteRowLightsRemainingMinutesAfterFiveMinuteBlocks(int minutes, String expectedRow) {
+        assertEquals(expectedRow, converter.singleMinuteRow(minutes));
+    }
 }
