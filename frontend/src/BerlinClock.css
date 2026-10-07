@@ -1,0 +1,136 @@
+.clock-panel {
+  --lamp-size: 3.5rem;
+  --row-height: 4.25rem;
+}
+
+.clock-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.clock-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.25vw, 3rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.mode-label {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.clock-status {
+  color: var(--muted);
+}
+
+.clock-rows {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.clock-row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr) minmax(7rem, 11rem);
+  align-items: center;
+  gap: var(--space-5);
+  min-height: var(--row-height);
+}
+
+.clock-row-label {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.75vw, 1.25rem);
+}
+
+.clock-lamps {
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.clock-lamps--short {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.clock-lamps--long {
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.clock-lamps--seconds {
+  display: flex;
+  justify-content: center;
+}
+
+.lamp {
+  display: block;
+  height: var(--lamp-size);
+  border: 2px solid #687990;
+  border-radius: 0.5rem;
+  background: var(--off);
+}
+
+.clock-lamps--seconds .lamp {
+  width: var(--lamp-size);
+  border-radius: 50%;
+}
+
+.lamp--red {
+  border-color: #ff9999;
+  background: var(--red);
+  box-shadow: 0 0 1rem #f15a5b70;
+}
+
+.lamp--yellow {
+  border-color: #ffe48c;
+  background: var(--yellow);
+  box-shadow: 0 0 1rem #ffca4f70;
+}
+
+.clock-row-code {
+  color: #d0d9e8;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.lamp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin: var(--space-8) 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+  .clock-row {
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .clock-row-label {
+    grid-column: 1;
+  }
+
+  .clock-row-code {
+    grid-column: 2;
+  }
+
+  .clock-lamps {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .clock-panel {
+    --lamp-size: 2.5rem;
+  }
+
+  .clock-lamps {
+    gap: var(--space-1);
+  }
+}

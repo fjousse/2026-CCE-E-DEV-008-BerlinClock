@@ -1,6 +1,6 @@
 # Berlin Clock
 
-This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The backend converts a supplied digital time into five Berlin Clock rows. The frontend shows those rows as text for either the browser's current local time or a manually selected time.
+This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The backend converts a supplied digital time into five Berlin Clock rows. The frontend displays the lamps and their raw row values for either the browser's current local time or a manually selected time.
 
 ## Prerequisites
 
