@@ -26,6 +26,7 @@ public class BerlinClockConverter {
     }
 
     public String singleMinuteRow(int minutes) {
-        return "OOOO";
+        int litLamps = minutes % 5;
+        return "Y".repeat(litLamps) + "O".repeat(4 - litLamps);
     }
 }
