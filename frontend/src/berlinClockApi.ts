@@ -10,8 +10,8 @@ type ProblemDetail = {
   detail?: string;
 };
 
-export async function convertTime(time: string): Promise<BerlinClockRows> {
-  const response = await fetch(`/api/berlin-clock?time=${encodeURIComponent(time)}`);
+export async function convertTime(time: string, signal?: AbortSignal): Promise<BerlinClockRows> {
+  const response = await fetch(`/api/berlin-clock?time=${encodeURIComponent(time)}`, { signal });
 
   if (!response.ok) {
     const problem: ProblemDetail = await response.json().catch(() => ({}));

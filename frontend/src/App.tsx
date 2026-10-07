@@ -1,55 +1,40 @@
 import { useState, type FormEvent } from "react";
 import BerlinClock from "./BerlinClock";
-import { convertTime, type BerlinClockRows } from "./berlinClockApi";
+import { useBerlinClock } from "./useBerlinClock";
 
 export default function App() {
-  const [time, setTime] = useState("");
-  const [result, setResult] = useState<{ time: string; rows: BerlinClockRows } | null>(null);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [manualTime, setManualTime] = useState("");
+  const { mode, time, rows, error, isLoading, showCurrentTime, showManualTime } = useBerlinClock();
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsLoading(true);
-    setError("");
-
-    try {
-      const rows = await convertTime(time);
-      setResult({ time, rows });
-    } catch (cause) {
-      setResult(null);
-      setError(cause instanceof Error ? cause.message : "Could not convert the time.");
-    } finally {
-      setIsLoading(false);
-    }
+    showManualTime(manualTime);
   }
 
   return (
     <main>
       <h1>Berlin Clock</h1>
+      <p>Mode: {mode === "current" ? "Current Time" : "Manual Time"}</p>
+      <button type="button" onClick={showCurrentTime}>
+        Use current time
+      </button>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="time">Time (HH:mm:ss)</label>
+        <label htmlFor="time">Manual time (HH:mm:ss)</label>
         <input
           id="time"
           type="time"
           step="1"
           required
-          value={time}
-          onChange={(event) => setTime(event.target.value)}
+          value={manualTime}
+          onChange={(event) => setManualTime(event.target.value)}
         />
-        <button type="submit" disabled={isLoading}>
-          Convert
-        </button>
+        <button type="submit">Convert manual time</button>
       </form>
 
+      <p>Digital time: {time}</p>
       {isLoading && <p role="status">Converting…</p>}
       {error && <p role="alert">{error}</p>}
-      {result && (
-        <>
-          <p>Digital time: {result.time}</p>
-          <BerlinClock rows={result.rows} />
-        </>
-      )}
+      {rows && <BerlinClock rows={rows} />}
     </main>
   );
 }
