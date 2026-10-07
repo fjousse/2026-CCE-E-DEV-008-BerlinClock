@@ -1,6 +1,6 @@
 # Berlin Clock
 
-This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The backend currently converts a supplied digital time into five Berlin Clock rows. The frontend is still a placeholder.
+This repository contains a Spring Boot backend and a React frontend for the Berlin Clock kata. The backend converts a supplied digital time into five Berlin Clock rows. The frontend currently supports manual time entry and shows those rows as text.
 
 ## Prerequisites
 
@@ -53,6 +53,6 @@ npm run build
 npm run dev
 ```
 
-Vite prints the local URL, normally `http://localhost:5173`. The page currently shows a placeholder heading. The frontend does not call the backend yet.
+Vite prints the local URL, normally `http://localhost:5173`. Enter a time including seconds and select **Convert** to see the five rows. Both servers must be running: the Vite development server forwards `/api` requests to the backend on port `8080`.
 
 The backend and frontend can be started independently. Stop either development server with `Ctrl+C`.
