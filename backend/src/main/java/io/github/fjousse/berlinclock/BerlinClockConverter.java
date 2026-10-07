@@ -18,6 +18,10 @@ public class BerlinClockConverter {
                 singleMinuteRow(time.getMinute()));
     }
 
+    public LocalTime toLocalTime(String representation) {
+        return null;
+    }
+
     public boolean isSecondsLampOn(int seconds) {
         return seconds % 2 == 0;
     }
