@@ -70,3 +70,11 @@ The response contains five named lamp rows:
 ```
 
 `R` is a lit red lamp, `Y` is a lit yellow lamp, and `O` is an off lamp. The API treats `time` as a local time of day without timezone conversion. Missing or invalid times return HTTP `400` with a validation detail.
+
+Convert a 24-character Berlin Clock representation back to digital time with `GET /api/digital-time?berlinClock=...`:
+
+```sh
+curl 'http://localhost:8080/api/digital-time?berlinClock=ORROOROOOYYRYYRYOOOOYYOO'
+```
+
+The response is `{"time":"11:37:01"}`. The seconds lamp reveals only parity, so reverse conversion uses `00` for a lit `Y` lamp and `01` for an unlit `O` lamp. Missing, malformed, or inconsistent lamp representations return HTTP `400` with a validation detail.

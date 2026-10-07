@@ -40,11 +40,20 @@ public class BerlinClockController {
 
     @GetMapping("/api/digital-time")
     public DigitalTimeResponse toDigitalTime(@RequestParam(required = false) String berlinClock) {
-        return null;
+        if (berlinClock == null) {
+            throw invalidBerlinClock();
+        }
+
+        try {
+            LocalTime time = converter.toLocalTime(berlinClock);
+            return new DigitalTimeResponse(time.format(TIME_FORMAT));
+        } catch (IllegalArgumentException exception) {
+            throw invalidBerlinClock();
+        }
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ProblemDetail> handleInvalidTime(ResponseStatusException exception) {
+    public ResponseEntity<ProblemDetail> handleBadRequest(ResponseStatusException exception) {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(
                 exception.getStatusCode(), exception.getReason());
         return ResponseEntity.status(exception.getStatusCode()).body(problem);
@@ -52,5 +61,10 @@ public class BerlinClockController {
 
     private static ResponseStatusException invalidTime() {
         return new ResponseStatusException(HttpStatus.BAD_REQUEST, "Time must be a valid HH:mm:ss value");
+    }
+
+    private static ResponseStatusException invalidBerlinClock() {
+        return new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Berlin Clock must be a valid 24-character R/Y/O representation");
     }
 }
