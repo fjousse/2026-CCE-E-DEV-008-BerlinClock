@@ -15,4 +15,8 @@ public class BerlinClockConverter {
         int litLamps = hours % 5;
         return "R".repeat(litLamps) + "O".repeat(4 - litLamps);
     }
+
+    public String fiveMinuteRow(int minutes) {
+        return "OOOOOOOOOOO";
+    }
 }
