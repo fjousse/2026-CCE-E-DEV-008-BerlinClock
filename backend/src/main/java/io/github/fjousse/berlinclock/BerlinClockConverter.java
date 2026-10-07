@@ -17,6 +17,11 @@ public class BerlinClockConverter {
     }
 
     public String fiveMinuteRow(int minutes) {
-        return "OOOOOOOOOOO";
+        int litLamps = minutes / 5;
+        StringBuilder row = new StringBuilder(11);
+        for (int lamp = 1; lamp <= litLamps; lamp++) {
+            row.append(lamp % 3 == 0 ? 'R' : 'Y');
+        }
+        return row.append("O".repeat(11 - litLamps)).toString();
     }
 }
