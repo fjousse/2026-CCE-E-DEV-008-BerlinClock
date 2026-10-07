@@ -4,7 +4,17 @@ import { useBerlinClock } from "./useBerlinClock";
 
 export default function App() {
   const [manualTime, setManualTime] = useState("");
-  const { mode, time, rows, error, isLoading, showCurrentTime, showManualTime } = useBerlinClock();
+  const {
+    mode,
+    time,
+    rows,
+    error,
+    isLoading,
+    autoRefresh,
+    setAutoRefresh,
+    showCurrentTime,
+    showManualTime,
+  } = useBerlinClock();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -18,6 +28,14 @@ export default function App() {
       <button type="button" onClick={showCurrentTime}>
         Use current time
       </button>
+      <label>
+        <input
+          type="checkbox"
+          checked={autoRefresh}
+          onChange={(event) => setAutoRefresh(event.target.checked)}
+        />
+        Automatic refresh (Current Time only)
+      </label>
       <form onSubmit={handleSubmit}>
         <label htmlFor="time">Manual time (HH:mm:ss)</label>
         <input

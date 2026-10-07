@@ -53,6 +53,6 @@ npm run build
 npm run dev
 ```
 
-Vite prints the local URL, normally `http://localhost:5173`. The page opens in **Current Time** mode and converts the browser's local time once. Enter a time including seconds and select **Convert manual time** to switch to manual mode. Select **Use current time** to return to Current Time mode. Automatic refresh is not available yet. Both servers must be running: the Vite development server forwards `/api` requests to the backend on port `8080`.
+Vite prints the local URL, normally `http://localhost:5173`. The page opens in **Current Time** mode and converts the browser's local time every second. Clear **Automatic refresh** to pause those updates. Enter a time including seconds and select **Convert manual time** to switch to manual mode; this stops current-time updates. Select **Use current time** to return to Current Time mode, which resumes automatic refresh if the checkbox is selected. Both servers must be running: the Vite development server forwards `/api` requests to the backend on port `8080`.
 
 The backend and frontend can be started independently. Stop either development server with `Ctrl+C`.
