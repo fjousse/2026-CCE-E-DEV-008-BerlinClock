@@ -20,10 +20,11 @@ mvn verify
 cd ../frontend
 npm ci
 npm test
+npm run lint
 npm run build
 ```
 
-`mvn verify` runs the backend tests and builds the backend. `npm test` runs the frontend interaction tests; `npm run build` checks TypeScript and builds the frontend.
+`mvn verify` runs the backend tests and builds the backend. `npm test` runs the frontend interaction tests, `npm run lint` checks TypeScript and React hook rules, and `npm run build` checks types and builds the frontend.
 
 ## Run
 
