@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import BerlinClock from "./BerlinClock";
+import DigitalTimeConverter from "./DigitalTimeConverter";
 import { useBerlinClock } from "./useBerlinClock";
 import "./App.css";
 
@@ -27,9 +28,6 @@ export default function App() {
       <header className="page-header">
         <p className="eyebrow">Berlin Clock Kata</p>
         <h1>Berlin Clock</h1>
-        <p className="page-description">
-          The lamps show time in blocks of five and single units.
-        </p>
       </header>
 
       <main>
@@ -69,6 +67,7 @@ export default function App() {
 
         {error && <p className="error-message" role="alert">{error}</p>}
         <BerlinClock time={time} mode={mode} rows={rows} isLoading={isLoading} />
+        <DigitalTimeConverter />
       </main>
     </div>
   );

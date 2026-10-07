@@ -1,0 +1,55 @@
+.reverse-panel {
+  margin-top: var(--space-8);
+}
+
+.reverse-panel h2 {
+  margin: 0 0 var(--space-4);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.reverse-description {
+  margin: 0 0 var(--space-8);
+  color: var(--muted);
+}
+
+.reverse-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.reverse-input {
+  width: min(100%, 36rem);
+  min-width: 0;
+  min-height: var(--control-height);
+  border: 2px solid var(--input-border);
+  border-radius: var(--control-radius);
+  background: var(--input-background);
+  color: var(--input-text);
+  padding: 0 var(--space-5);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 1.25rem;
+}
+
+.reverse-input:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+.reverse-hint {
+  margin: var(--space-3) 0 var(--space-8);
+  color: var(--muted);
+}
+
+.reverse-result {
+  display: block;
+  font-size: clamp(2rem, 3.25vw, 3rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 520px) {
+  .reverse-input {
+    font-size: 1rem;
+  }
+}

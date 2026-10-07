@@ -48,6 +48,7 @@ Open the URL printed by Vite, normally `http://localhost:5173`. The frontend for
 - Clear **Refresh automatically every second** to pause current-time updates.
 - Enter a time including seconds and select **Show** to use manual time. This stops current-time updates.
 - Select **Current time** to return to the browser's time. Refresh resumes if its checkbox is selected.
+- In the separate **Berlin Clock to digital time** section, enter all 24 lamps and select **Convert**. The backend returns the digital time or a validation error.
 
 ## API
 

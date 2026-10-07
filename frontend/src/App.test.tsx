@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 
@@ -50,7 +50,8 @@ describe("Berlin Clock interactions", () => {
     await finishConversion();
 
     expect(requestedTimes()).toEqual(["08:35:54", "23:12:47"]);
-    expect(screen.getByRole("heading", { level: 2 }).textContent).toBe("23:12:47");
+    expect(within(screen.getByRole("region", { name: "Berlin Clock result" }))
+      .getByRole("heading", { level: 2 }).textContent).toBe("23:12:47");
     expect(screen.getByText("YYRYYRYYRYO")).toBeTruthy();
 
     await act(async () => {
@@ -71,7 +72,8 @@ describe("Berlin Clock interactions", () => {
     await finishConversion();
 
     expect(requestedTimes()).toEqual(["08:35:54", "23:12:47", "08:35:55"]);
-    expect(screen.getByRole("heading", { level: 2 }).textContent).toBe("08:35:55");
+    expect(within(screen.getByRole("region", { name: "Berlin Clock result" }))
+      .getByRole("heading", { level: 2 }).textContent).toBe("08:35:55");
   });
 
   it("refreshes each second only while automatic refresh is enabled", async () => {

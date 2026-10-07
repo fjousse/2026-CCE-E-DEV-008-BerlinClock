@@ -13,6 +13,9 @@
   --yellow: #ffca4f;
   --red: #f15a5b;
   --off: #44546d;
+  --input-border: #b5c2d4;
+  --input-background: #fff;
+  --input-text: #182337;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -73,12 +76,6 @@ button {
   letter-spacing: -0.04em;
 }
 
-.page-description {
-  margin: var(--space-6) 0 0;
-  color: var(--muted);
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-}
-
 .panel {
   border: 1px solid var(--border);
   border-radius: 1.75rem;
@@ -107,10 +104,10 @@ button {
 .time-input {
   width: 14.5rem;
   min-height: var(--control-height);
-  border: 2px solid #b5c2d4;
+  border: 2px solid var(--input-border);
   border-radius: var(--control-radius);
-  background: #fff;
-  color: #182337;
+  background: var(--input-background);
+  color: var(--input-text);
   color-scheme: light;
   padding: 0 var(--space-5);
   font-size: 1.75rem;
